@@ -34,7 +34,7 @@ namespace image_stitching
                
                 pictureBoxresult.SizeMode = PictureBoxSizeMode.AutoSize;
                 pictureBoxresult.Image = LoadUnlocked(outputstr);
-                
+                //
             }
         }
         private Bitmap LoadUnlocked(string file_name)
