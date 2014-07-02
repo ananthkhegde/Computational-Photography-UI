@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "image_stitching", "image_stitching\image_stitching.csproj", "{556A1CE5-B576-49E3-A8A0-6D8D716D6932}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{556A1CE5-B576-49E3-A8A0-6D8D716D6932}.Debug|x86.ActiveCfg = Debug|x86
+		{556A1CE5-B576-49E3-A8A0-6D8D716D6932}.Debug|x86.Build.0 = Debug|x86
+		{556A1CE5-B576-49E3-A8A0-6D8D716D6932}.Release|x86.ActiveCfg = Release|x86
+		{556A1CE5-B576-49E3-A8A0-6D8D716D6932}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
