@@ -8,11 +8,15 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Drawing.Drawing2D;
 
 namespace image_stitching
 {
+    #region "Class defination"
     public partial class Form1 : Form
     {
+
+
         public Form1()
         {
             InitializeComponent();
@@ -24,17 +28,15 @@ namespace image_stitching
             if (validate())
             {
                 stitch st = new stitch();
-                //  st.StitchImage("E:\\IIITB\\Sumer Sem\\SE\\Harsha\\testimages\\bed3.jpg","E:\\IIITB\\Sumer Sem\\SE\\Harsha\\testimages\\bed2.jpg");
                 if (File.Exists(outputstr))
                 {   
                     File.Delete(outputstr);
                 }
                 st.StitchImage(txtimg2.Text, txtimg1.Text);
-                
-               
                 pictureBoxresult.SizeMode = PictureBoxSizeMode.AutoSize;
                 pictureBoxresult.Image = LoadUnlocked(outputstr);
-                //
+                btnsaveas.Enabled = true;
+                trackBar1.Visible = true;
             }
         }
         private Bitmap LoadUnlocked(string file_name)
@@ -98,9 +100,10 @@ namespace image_stitching
                 if (open.ShowDialog() == DialogResult.OK)
                 {
                     txtimg1.Text = open.FileName;
-                    Bitmap bit = new Bitmap(open.FileName);
                     pictureBoximg1.SizeMode = PictureBoxSizeMode.AutoSize;
-                    pictureBoximg1.Image = bit;
+                    pictureBoximg1.Image = LoadUnlocked(open.FileName);
+                    pictureBoximg1.BackgroundImageLayout = ImageLayout.Stretch;
+                    trackBar1.Visible = true;
                 }
             }
             catch (Exception)
@@ -108,7 +111,13 @@ namespace image_stitching
                 throw new ApplicationException("Failed loading image");
             }
         }
-
+        public Image PictureBoxZoom(Image img, Size size)
+        {
+            Bitmap bm = new Bitmap(img, Convert.ToInt32(img.Width * size.Width), Convert.ToInt32(img.Height * size.Height));
+            Graphics grap = Graphics.FromImage(bm);
+            grap.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            return bm;
+        }
         private void btnimg2_Click(object sender, EventArgs e)
         {
             try
@@ -118,9 +127,11 @@ namespace image_stitching
                 if (open.ShowDialog() == DialogResult.OK)
                 {
                     txtimg2.Text = open.FileName;
-                    Bitmap bit = new Bitmap(open.FileName);
+                  //  Bitmap bit = new Bitmap(open.FileName);
                     pictureBoximg2.SizeMode = PictureBoxSizeMode.AutoSize;
-                    pictureBoximg2.Image = bit;
+                    pictureBoximg2.Image = LoadUnlocked(open.FileName);
+                    pictureBoximg2.BackgroundImageLayout = ImageLayout.Stretch;
+                    trackBar2.Visible = true;
                 }
             }
             catch (Exception)
@@ -131,9 +142,13 @@ namespace image_stitching
 
         private void btnsaveas_Click(object sender, EventArgs e)
         {
+            Saveas();
            
+        }
+        private void Saveas()
+        {
             saveFileDialog1.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
-           
+
             saveFileDialog1.Title = "Save an Image File";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -149,6 +164,9 @@ namespace image_stitching
                 pictureBoximg1.Image = null;
                 pictureBoximg2.Image = null;
                 pictureBoxresult.Image = null;
+                btnsaveas.Enabled = false;
+                trackBar1.Visible = false;
+                trackBar2.Visible = false;
         }
 
         private void btnclear_Click(object sender, EventArgs e)
@@ -156,6 +174,8 @@ namespace image_stitching
             txtimg1tonemap.Text = string.Empty;
             pictureBoximg1.Image = null;
             pictureBoxresult.Image = null;
+            btnsaveas.Enabled = false;
+            trackBar1.Visible = false;
         }
 
         private void btnimgtonemap_Click(object sender, EventArgs e)
@@ -167,9 +187,9 @@ namespace image_stitching
                 if (open.ShowDialog() == DialogResult.OK)
                 {
                     txtimg1tonemap.Text = open.FileName;
-                    Bitmap bit = new Bitmap(open.FileName);
                     pictureBoximg1.SizeMode = PictureBoxSizeMode.AutoSize;
-                    pictureBoximg1.Image = bit;
+                    pictureBoximg1.Image = LoadUnlocked(open.FileName);
+                    trackBar1.Visible = true;
                 }
             }
             catch (Exception)
@@ -180,14 +200,100 @@ namespace image_stitching
 
         private void btntonemap_Click(object sender, EventArgs e)
         {
+           
             if (validatetonemap())
             {
+                string outputstr = Application.StartupPath + "\\out.jpg";
+                if (File.Exists(outputstr))
+                {
+                    File.Delete(outputstr);
+                }
                 Tonemapping tm = new Tonemapping();
                 tm.Maptone(txtimg1tonemap.Text);
-                Bitmap bit = new Bitmap("E:\\IIITB\\Sumer Sem\\SE\\Harsha - Copy\\image_stitching\\image_stitching\\bin\\Debug\\out.jpg");
                 pictureBoxresult.SizeMode = PictureBoxSizeMode.AutoSize;
-                pictureBoxresult.Image = bit;
+                pictureBoxresult.Image = LoadUnlocked(outputstr);
+                btnsaveas.Enabled = true;
             }
+        }
+
+        private void btnfileopen_Click(object sender, EventArgs e)
+        {
+            openfile();
+        }
+
+        private void openfile()
+        {
+            try
+            {
+                OpenFileDialog open = new OpenFileDialog();
+                open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+                if (open.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBoximg2.SizeMode = PictureBoxSizeMode.AutoSize;
+                    pictureBoxresult.Image = LoadUnlocked(open.FileName);
+
+                }
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException("Failed loading image");
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openfile();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Saveas();
+        }
+        
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void toneMappingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+        }
+
+        private void panoramaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            string imagepath = null;
+            imagepath = (tabControl1.SelectedIndex == 0)?txtimg1.Text:txtimg1tonemap.Text;
+            Image image1 = Image.FromFile(imagepath);
+            if (trackBar1.Value >0)
+            {
+                pictureBoximg1.Image = null;
+
+                pictureBoximg1.Image = PictureBoxZoom(image1, new Size(trackBar1.Value, trackBar1.Value));
+            }
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            Image image2 = Image.FromFile(txtimg2.Text);
+            if (trackBar2.Value > 0)
+            {
+                pictureBoximg2.Image = null;
+
+                pictureBoximg2.Image = PictureBoxZoom(image2, new Size(trackBar2.Value, trackBar2.Value));
+            }
+        }
+
+        private void btnprint_Click(object sender, EventArgs e)
+        {
+            PrintDialog dlg = new PrintDialog();
+            dlg.ShowDialog();
         }
     }
 }
+    # endregion

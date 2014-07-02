@@ -33,8 +33,12 @@
             this.btnstitchimg = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panoramaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toneMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbloptions = new System.Windows.Forms.Label();
@@ -52,6 +56,7 @@
             this.txtimg1tonemap = new System.Windows.Forms.TextBox();
             this.btnimgtonemap = new System.Windows.Forms.Button();
             this.lbluploadtonemap = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.panelresult = new System.Windows.Forms.Panel();
             this.pictureBoxresult = new System.Windows.Forms.PictureBox();
             this.panelimg2 = new System.Windows.Forms.Panel();
@@ -60,12 +65,12 @@
             this.pictureBoximg1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnfileopen = new System.Windows.Forms.Button();
-            this.btnprint = new System.Windows.Forms.Button();
             this.btnsaveas = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -74,6 +79,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panelresult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxresult)).BeginInit();
             this.panelimg2.SuspendLayout();
@@ -84,6 +90,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnstitchimg
@@ -100,7 +107,6 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -111,21 +117,57 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // editToolStripMenuItem
+            // openToolStripMenuItem
             // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.panoramaToolStripMenuItem,
+            this.toneMappingToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // panoramaToolStripMenuItem
+            // 
+            this.panoramaToolStripMenuItem.Name = "panoramaToolStripMenuItem";
+            this.panoramaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.panoramaToolStripMenuItem.Text = "Panorama";
+            this.panoramaToolStripMenuItem.Click += new System.EventHandler(this.panoramaToolStripMenuItem_Click);
+            // 
+            // toneMappingToolStripMenuItem
+            // 
+            this.toneMappingToolStripMenuItem.Name = "toneMappingToolStripMenuItem";
+            this.toneMappingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.toneMappingToolStripMenuItem.Text = "Tone Mapping";
+            this.toneMappingToolStripMenuItem.Click += new System.EventHandler(this.toneMappingToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -146,6 +188,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.trackBar2);
+            this.splitContainer1.Panel2.Controls.Add(this.trackBar1);
             this.splitContainer1.Panel2.Controls.Add(this.panelresult);
             this.splitContainer1.Panel2.Controls.Add(this.panelimg2);
             this.splitContainer1.Panel2.Controls.Add(this.panelimg1);
@@ -310,6 +354,17 @@
             this.lbluploadtonemap.TabIndex = 0;
             this.lbluploadtonemap.Text = "Select an Image";
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(13, 217);
+            this.trackBar1.Maximum = 20;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(104, 45);
+            this.trackBar1.TabIndex = 3;
+            this.trackBar1.Value = 1;
+            this.trackBar1.Visible = false;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
             // panelresult
             // 
             this.panelresult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -367,7 +422,6 @@
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.btnfileopen);
-            this.panel1.Controls.Add(this.btnprint);
             this.panel1.Controls.Add(this.btnsaveas);
             this.panel1.Location = new System.Drawing.Point(22, 27);
             this.panel1.Name = "panel1";
@@ -382,18 +436,11 @@
             this.btnfileopen.Size = new System.Drawing.Size(55, 32);
             this.btnfileopen.TabIndex = 5;
             this.btnfileopen.UseVisualStyleBackColor = true;
-            // 
-            // btnprint
-            // 
-            this.btnprint.Image = global::image_stitching.Properties.Resources.print;
-            this.btnprint.Location = new System.Drawing.Point(112, 1);
-            this.btnprint.Name = "btnprint";
-            this.btnprint.Size = new System.Drawing.Size(54, 32);
-            this.btnprint.TabIndex = 4;
-            this.btnprint.UseVisualStyleBackColor = true;
+            this.btnfileopen.Click += new System.EventHandler(this.btnfileopen_Click);
             // 
             // btnsaveas
             // 
+            this.btnsaveas.Enabled = false;
             this.btnsaveas.Image = global::image_stitching.Properties.Resources.saveas;
             this.btnsaveas.Location = new System.Drawing.Point(60, 1);
             this.btnsaveas.Name = "btnsaveas";
@@ -414,6 +461,17 @@
             // 
             this.errorProvider3.ContainerControl = this;
             // 
+            // trackBar2
+            // 
+            this.trackBar2.Location = new System.Drawing.Point(396, 217);
+            this.trackBar2.Maximum = 20;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Size = new System.Drawing.Size(104, 45);
+            this.trackBar2.TabIndex = 4;
+            this.trackBar2.Value = 1;
+            this.trackBar2.Visible = false;
+            this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -431,6 +489,7 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -438,6 +497,7 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panelresult.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxresult)).EndInit();
             this.panelimg2.ResumeLayout(false);
@@ -448,6 +508,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -458,7 +519,6 @@
         private System.Windows.Forms.Button btnstitchimg;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -478,7 +538,6 @@
         private System.Windows.Forms.Panel panelresult;
         private System.Windows.Forms.PictureBox pictureBoxresult;
         private System.Windows.Forms.Button btnfileopen;
-        private System.Windows.Forms.Button btnprint;
         private System.Windows.Forms.Button btnsaveas;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label lblupload;
@@ -491,6 +550,13 @@
         private System.Windows.Forms.Button btnimgtonemap;
         private System.Windows.Forms.Label lbluploadtonemap;
         private System.Windows.Forms.ErrorProvider errorProvider3;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem panoramaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toneMappingToolStripMenuItem;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBar2;
     }
 }
 
